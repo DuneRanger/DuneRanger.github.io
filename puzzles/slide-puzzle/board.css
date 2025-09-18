@@ -1,0 +1,48 @@
+#puzzle-board {
+	background-color: rgb(45, 25, 10);
+	width: 60vw;
+	height: 60vh;
+	max-width: 60vh;
+	max-height: 60vw;
+
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 25% 25% 25% 25%;
+}
+
+.puzzle-tile {
+	background-color: var(--tile-col);
+	color: rgba(0, 0, 0, 0.700);
+	
+	display: grid;
+	place-items: center;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	user-select: none;
+
+	box-sizing: border-box;
+	border: 3px solid var(--tile-border);
+	border-radius: 10px;
+}
+
+@-webkit-keyframes pulse {
+	0% {
+		-webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.768);
+		-webkit-transform: translate(1px, 0px);
+	}
+	20% {
+		-webkit-transform: translate(-1px, 1px);
+	}
+	40% {
+		-webkit-transform: translate(-1px, -1px);
+	}
+	60% {
+		-webkit-transform: translate(1px, 1px);
+	}
+	80% {
+		-webkit-box-shadow: 0 0 0 3px rgba(255,0,0, 0);
+		-webkit-transform: translate(0px, -1px);
+	}
+	100% {
+		-webkit-box-shadow: 0 0 0 0 rgba(255,0,0, 0);
+	}
+}
