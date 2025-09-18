@@ -1,19 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-au">
 <head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
-	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Culliver">
+    <meta name="description"
+          content="A portfolio-type website to display miscellaneous projects I make in my free time">
 
-	<title>Svelte app</title>
-
-	<link rel='icon' type='image/png' href='/favicon.png'>
-	<link rel='stylesheet' href='/global.css'>
-	<link rel='stylesheet' href='/build/bundle.css'>
-
-	<script defer src='/build/bundle.js'></script>
+	<link href="./index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <title>Puzzle site</title>
 </head>
-
+<script>
+	function setIframeSrc(path) {
+		document.getElementById("main-iframe").setAttribute("src", path);
+	}
+</script>
 <body>
+	<nav class="nav-left">
+		<div class="nav-container">
+			<div class="nav-title nav-link" onclick="setIframeSrc('./main.html')">
+				Main Page
+			</div>
+			<hr>
+			<ul>
+				<div class="nav-title nav-link" onclick="setIframeSrc('./puzzles/index.html')">
+					Puzzles
+				</div>
+				<li><div class="nav-link" onclick="setIframeSrc('./puzzles/slide-puzzle/index.html')">
+					Slide Puzzle
+				</div></li>
+				<li><div class="nav-link" onclick="setIframeSrc('./puzzles/flow/index.html')">
+					Flow
+				</div></li>
+			</ul>
+			<hr>
+			<ul>
+				<div class="nav-title nav-link" onclick="setIframeSrc('./other-projects/main.html')">
+					Other Projects
+				</div>
+				<li><div class="nav-link" onclick="setIframeSrc('./other-projects/name-generator/index.html')">
+					Name Generator
+				</div></li>
+				<li><div class="nav-link" onclick="setIframeSrc('./other-projects/large-number-library/index.html')">
+					Large Number Library
+				</div></li>
+			</ul>
+			<hr>
+			<ul>
+				<div class="nav-title nav-link" onclick="setIframeSrc('./archive/index.html')">
+					Archive
+				</div>
+				<li><div class="nav-link" onclick="setIframeSrc('./archive/puzzle-website/index.html')">
+					Puzzle Website
+				</div></li>
+				<li><div class="nav-link" onclick="setIframeSrc('./archive/query-builder/index.html')">
+						Wikidata query builder (cz)
+				</div></li>
+			</ul>
+		</div>
+	</nav>
+	<iframe src="./puzzles/slide-puzzle/index.html" frameborder="0" id="main-iframe">
 </body>
 </html>
+
