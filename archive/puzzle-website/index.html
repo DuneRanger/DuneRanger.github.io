@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-au">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Culliver">
+    <meta name="description"
+          content="A website for me to increase my knowledge about P5.js, css and html cooperation">
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <title>Puzzle site</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js" type="text/javascript"></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+    <div>
+        <button id = "newPuzzle">Start a new puzzle</button>
+        <button id = "puzzleShuffle">Shuffle puzzle</button>
+        <div id = puzzleSize></div>
+        <input type="range" min="3" max="20" value="9" id="gridWidth">
+        <input type="range" min="3" max="20" value="9" id="gridHeight">
+        <div id="lockWidAndHei">
+            <input type="checkbox" id="lock" checked>
+            <label for="locked">Equal width & height</label>
+        </div>
+        <div id="disableChanges">
+            <input type="checkbox" id="disable">
+            <label for="disable">Lock the puzzle and tile amount</label>
+        </div>
+        <button id = "shiftUp">Shift puzzle up</button>
+        <button id = "shiftDown">Shift puzzle down</button>
+        <button id = "shiftLeft">Shift puzzle left</button>
+        <button id = "shiftRight">Shift puzzle right</button>
+        <button id= "showBoxes">Toggle boxes</button>
+    </div>
+    <div id = "canvas"></div>
+    <h6 id = "disclaimer">NOTE: I do not own any of these images. All images have a signature/watermark</h6>
+</body>
+</html>
+

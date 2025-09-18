@@ -1,0 +1,63 @@
+body {
+    text-align: center;
+    background-color: rgb(212, 212, 212);
+}
+
+button {
+    border: 1px solid black;
+    background-color: rgb(243, 243, 243);
+    color: black;
+    font-size: 2ex;
+    padding: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+div {
+    padding: 5px;
+}
+
+#lockWidAndHei {
+    position: absolute;
+    left: 60%;
+    top: 6%;
+}
+
+#disableChanges {
+    position: absolute;
+    left: 60%;
+    top: 2%;
+}
+
+#shiftUp {
+    position: absolute;
+    left: 12%;
+    top: 2%;
+}
+
+#shiftDown {
+    position: absolute;
+    left: 11.3%;
+    top: 6%;
+}
+
+#shiftLeft {
+    position: absolute;
+    left: 4%;
+    top: 4%;
+}
+
+#shiftRight {
+    position: absolute;
+    left: 19.8%;
+    top: 4%;
+}
+
+#showBoxes {
+    position: absolute;
+    left: 4%;
+    top: 12%;
+}
