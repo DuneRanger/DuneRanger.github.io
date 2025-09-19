@@ -8,6 +8,10 @@ const board_width = 100*puzzle_board.clientWidth/document.body.clientWidth;
 // in view-height
 const board_height = 100*puzzle_board.clientHeight/document.body.clientHeight;
 
+let board_size = 4;
+let row_count = board_size;
+let col_count = board_size;
+
 let in_animation = false;
 let animation_speed = 1;
 
@@ -28,13 +32,11 @@ function swap_tile_ids(row1, col1, row2, col2) {
 class Tile {
 	static id = 1;
 	// width and height are measured in view-width/view-height
-	constructor(row, col, width, height) {
+	constructor(row, col) {
 		this.row = row;
 		this.col = col;
 		this.id = Tile.id;
 		Tile.id++;
-		this.width = width;
-		this.height = height;
 
 		this.createBaseElement();
 		this.setStyles()
@@ -43,6 +45,7 @@ class Tile {
 
 	createBaseElement() {
 		this.el = document.createElement("div");
+		puzzle_board.appendChild(this.el);
 		this.el.setAttribute("class", "puzzle-tile");
 		this.el.textContent = this.id.toString();
 	}
@@ -51,13 +54,12 @@ class Tile {
 		this.el.style.gridRow = 1+this.row;
 		this.el.style.gridCol = 1+this.col;
 
-		this.el.style.lineHeight = this.el.style.height;
-		this.el.style.fontSize = Math.sqrt(this.height*this.width)/4 + "vw";
+		this.el.style.fontSize = Math.sqrt(this.el.clientHeight + this.el.clientWidth)/4 + "vw";
 	}
 
 	addMoveEvent() {
 		this.el.onclick = (ev) => {
-			if (in_animation) return;
+			if (in_animation) this.failMove();
 			let moveset = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 			for (let [x, y] of moveset) {
 				let new_x = this.row + x;
@@ -72,31 +74,47 @@ class Tile {
 	}
 
 	succeedMove(row, col) {
-		board_tiles[row][col].id = this.id;
-		board_tiles[row][col].el.style.visibility = "visible";
-		board_tiles[row][col].el.textContent = this.id.toString();
-		this.id = 0;
+		in_animation = true;
+		let animation_length = 300*animation_speed;
+
+		let anim_tile = this.el.cloneNode(true);
 		this.el.style.visibility = "hidden";
+		board_tiles[row][col].id = this.id;
+		board_tiles[row][col].el.textContent = this.id.toString();
+		
+		puzzle_board.appendChild(anim_tile);
+		anim_tile.style.transition = "left " + animation_length + "ms ease-out, top " + animation_length + "ms ease-out";
+
+		anim_tile.style.position = "absolute";
+		anim_tile.style.zIndex = "0";
+		anim_tile.style.width = this.el.offsetWidth + "px";
+		anim_tile.style.height = this.el.offsetHeight + "px";
+		anim_tile.style.left = this.el.offsetLeft + "px";
+		anim_tile.style.top = this.el.offsetTop + "px";
+
+		anim_tile.style.left = board_tiles[row][col].el.offsetLeft + "px";
+		anim_tile.style.top = board_tiles[row][col].el.offsetTop + "px";
+
+		setTimeout(() => {
+			puzzle_board.removeChild(anim_tile);
+			board_tiles[row][col].el.style.visibility = "visible";
+			this.id = 0;
+			in_animation = false;
+		}, animation_length);
 	}
 
-	// TODO: add some sort of shake/struggle animation
 	failMove() {
-		// in_animation = true;
 		let animation_length = 200*animation_speed;
 		this.el.style.animation = "pulse " + animation_length + "ms normal";
-		this.el.style.zIndex = "1";
+		this.el.style.zIndex = "2";
 		setTimeout(() => {
 			this.el.style.animation = "";
-			this.el.style.zIndex = "0";
+			this.el.style.zIndex = "1";
 		}, animation_length);
-		// setTimeout(() => {in_animation = false;}, animation_length/2);
 	}
 }
 
 function prepare_board() {
-	let board_size = 4;
-	let row_count = board_size;
-	let col_count = board_size;
 	Tile.id = 1;
 	for (let i = 0; i < board_tiles.length; i++) {
 		for (let j = 0; j < board_tiles[i].length; j++) {
@@ -106,14 +124,10 @@ function prepare_board() {
 	board_tiles = []
 	let start_position = row_count*col_count;
 
-	let width = board_width/col_count;
-	let height = board_height/row_count;
-
 	for (let i = 0; i < row_count; i++) {
 		let row = []
 		for (let j = 0; j < col_count; j++) {
-			let tile = new Tile(i, j, width, height);
-			puzzle_board.appendChild(tile.el);
+			let tile = new Tile(i, j);
 			row.push(tile);
 		}
 		board_tiles.push(row);
